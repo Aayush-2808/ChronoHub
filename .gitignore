@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+chronohub.db
+.venv/
+.env
