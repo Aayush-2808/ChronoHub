@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Hello, {{ user }}</h1>
+<p class="muted">Save important milestones and calculation notes here.</p>
+<div class="form-card">
+<h2>Add a Record</h2>
+<form method="post" action="/save">
+<label>Title</label><input name="title" placeholder="Example: My Birthday" required>
+<label>Date</label><input type="date" name="record_date">
+<label>Type</label><select name="record_type">
+<option>Birthday</option><option>Milestone</option><option>Age Calculation</option>
+<option>Date Utility</option><option>Other</option>
+</select>
+<label>Details</label><textarea name="details" required></textarea>
+<button type="submit">Save Record</button>
+</form></div>
+<a class="button" href="/report">Download Report</a>
+<h2>History</h2>
+{% if records %}
+<div class="table-wrap"><table>
+<tr><th>Title</th><th>Type</th><th>Details</th><th>Record Date</th><th>Saved</th><th>Action</th></tr>
+{% for r in records %}
+<tr><td>{{ r.title }}</td><td>{{ r.record_type }}</td><td>{{ r.details }}</td>
+<td>{{r.record_date}}</td><td>{{ r.created_at }}</td><td><a href="/delete/{{ r.id }}">Delete</a></td></tr>
+{% endfor %}
+</table></div>
+{% else %}<p>No records saved yet.</p>{% endif %}
+{% endblock %}
